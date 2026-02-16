@@ -1,6 +1,8 @@
 # 🛡️ PhishGuard — AI-Powered Phishing URL Detection
 
-A Flask web application that uses a CNN+LSTM deep learning model to detect phishing URLs in real-time. Trained on 480K+ URLs with **97.24% accuracy**.
+A Streamlit web application that uses a CNN+LSTM deep learning model to detect phishing URLs in real-time. Trained on 480K+ URLs with **97.24% accuracy**.
+
+🔗 **Live Demo:** [phishguard-ai-url-detection.streamlit.app](https://phishguard-ai-url-detection.streamlit.app/)
 
 ---
 
@@ -32,9 +34,22 @@ python train.py
 
 ### 5. Run the app
 ```bash
-python app.py
+streamlit run app.py
 ```
-Open **http://127.0.0.1:5000** in your browser.
+The app will open at **http://localhost:8501** in your browser.
+
+---
+
+## ☁️ Streamlit Cloud Deployment
+
+This app is designed for one-click deployment to [Streamlit Cloud](https://streamlit.io/cloud):
+
+1. Push your code to GitHub
+2. Go to [share.streamlit.io](https://share.streamlit.io)
+3. Select your repo, branch `main`, and main file `app.py`
+4. Click **Deploy**
+
+> The `requirements.txt` includes all necessary dependencies. The model and tokenizer in `models/` are committed to the repo, so no extra setup is needed.
 
 ---
 
@@ -42,19 +57,14 @@ Open **http://127.0.0.1:5000** in your browser.
 
 ```
 Phishing_url_detection/
-├── app.py                    # Flask web server
+├── app.py                    # Streamlit web app
 ├── train.py                  # Model training script
 ├── dataset.csv               # 480K URL dataset (url, label)
 ├── requirements.txt          # Python dependencies (pinned)
 ├── models/
 │   ├── phishing_model.keras  # Trained CNN+LSTM model
 │   └── tokenizer.pkl         # Character-level tokenizer
-├── templates/
-│   └── index.html            # Main UI template
-├── static/
-│   ├── css/style.css         # Dark-themed glassmorphism CSS
-│   └── js/script.js          # Frontend logic & animations
-├── venv/                     # Python virtual environment
+├── venv/                     # Python virtual environment (local only)
 └── README.md                 # This file
 ```
 
@@ -67,7 +77,7 @@ Phishing_url_detection/
 | Embedding          | vocab_size × 64, input_length=250 |
 | Conv1D + MaxPool   | 64 filters, kernel=3, pool=2 |
 | Conv1D + MaxPool   | 128 filters, kernel=3, pool=2 |
-| GlobalMaxPooling1D | -                           |
+| GlobalMaxPooling1D | —                           |
 | Reshape            | (1, 128)                    |
 | LSTM               | 128 units                   |
 | Dense + Dropout    | 128 units, ReLU, 20% dropout |
@@ -91,40 +101,12 @@ Phishing_url_detection/
 
 ---
 
-## 🌐 API Reference
-
-### `POST /predict`
-```json
-// Request
-{ "url": "https://example.com/path" }
-
-// Response
-{
-    "url": "https://example.com/path",
-    "is_phishing": false,
-    "confidence": 99.8,
-    "raw_score": 0.998
-}
-```
-
-### `GET /health`
-Returns model and tokenizer loading status.
-
----
-
-## 📋 Dataset
-
-- **Source:** `dataset.csv` (480,005 URLs)
-- **Labels:** `0` = phishing, `1` = legitimate
-- **Split:** 70% train / 15% validation / 15% test
-
----
-
 ## 🛠️ Tech Stack
 
-- **Backend:** Flask 3.1, TensorFlow 2.20
-- **ML:** CNN+LSTM with character-level tokenization
-- **Frontend:** Vanilla HTML/CSS/JS with glassmorphism design
+- **Frontend:** Streamlit 1.54 with custom CSS
+- **ML:** TensorFlow 2.20, CNN+LSTM with character-level tokenization
+- **Training:** scikit-learn, pandas, numpy, matplotlib
+- **Deployment:** Streamlit Cloud
 - **Python:** 3.13+
 
 ---
