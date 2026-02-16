@@ -1,11 +1,31 @@
-# generated files
-target/
-generated/
+# ─── Python ───────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg-info/
+dist/
+build/
+*.egg
 
-# dependencies
-Dependencies.toml
+# ─── Virtual Environment ─────────────────────
+venv/
+env/
+.venv/
 
-# config files
-Config.toml
-# the config files used for testing, Uncomment the following line if you want to commit the test config files
-#!**/tests/Config.toml
+# ─── IDE / Editor ────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# ─── OS ──────────────────────────────────────
+.DS_Store
+Thumbs.db
+
+# ─── Jupyter ─────────────────────────────────
+.ipynb_checkpoints/
+
+# ─── Misc ────────────────────────────────────
+*.log
